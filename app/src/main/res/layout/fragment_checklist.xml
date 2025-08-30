@@ -14,11 +14,12 @@
         android:layout_height="wrap_content"
         android:text="Wedding Checklist 📝"
         android:fontFamily="@font/playfair"
+        android:textStyle="bold"
         android:textSize="28sp"
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:textColor="@color/primaryTextColor"
-        android:textStyle="bold"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -17,6 +17,6 @@ interface TaskDao {
     suspend fun updateTask(task: Task)
 
 
-    @Query("SELECT * FROM tasks ORDER BY id DESC")
+    @Query("SELECT * FROM tasks ORDER BY id ASC")
     fun getAllTasks(): Flow<List<Task>>
 }

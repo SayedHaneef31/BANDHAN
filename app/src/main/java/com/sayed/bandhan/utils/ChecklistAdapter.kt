@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sayed.bandhan.Data.Task
 import com.sayed.bandhan.databinding.ItemChecklistBinding
 
-class ChecklistAdapter(private val onTaskChecked: (Task, Boolean) -> Unit) :
-    ListAdapter<Task, ChecklistAdapter.TaskViewHolder>(TaskDiffCallback()) {
+class ChecklistAdapter(private val onTaskChecked: (Task, Boolean) -> Unit,
+                       private val onTaskEdit: (Task) -> Unit
+) : ListAdapter<Task, ChecklistAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemChecklistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,11 +26,20 @@ class ChecklistAdapter(private val onTaskChecked: (Task, Boolean) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
+            // checklist listner
             binding.checkTask.setOnCheckedChangeListener { _, isChecked ->
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val task = getItem(position)
                     onTaskChecked(task, isChecked)
+                }
+            }
+            // item edit listner
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val task = getItem(position)
+                    onTaskEdit(task) // Call the new edit callback
                 }
             }
         }

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sayed.bandhan.Data.AppDatabase
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sayed.bandhan.Data.Task
 import com.sayed.bandhan.R
 import com.sayed.bandhan.databinding.FragmentChecklistBinding
@@ -24,6 +25,8 @@ class ChecklistFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var db: AppDatabase
     private lateinit var taskAdapter: ChecklistAdapter
+    private var isInitialLoad = true
+    private var previousTaskCount = 0
 
 
     override fun onCreateView(
@@ -42,25 +45,68 @@ class ChecklistFragment : Fragment() {
         observeTasks()
         setupListeners()
     }
+
+
     private fun setupRecyclerView() {
-        taskAdapter = ChecklistAdapter { task, isChecked ->
-            // This is the callback for when a checkbox is toggled
-            task.isCompleted = isChecked
-            lifecycleScope.launch {
-                db.taskDao().updateTask(task)
+        taskAdapter = ChecklistAdapter(
+            onTaskChecked = { task, isChecked ->
+                task.isCompleted = isChecked
+                lifecycleScope.launch {
+                    db.taskDao().updateTask(task)
+                }
+            },
+            onTaskEdit = { taskToEdit ->
+                showEditTaskDialog(taskToEdit)
             }
-        }
+        )
         binding.recyclerChecklist.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = taskAdapter
         }
+    }
+    private fun showEditTaskDialog(taskToEdit: Task) {
+        val builder = AlertDialog.Builder(requireContext())
+        val view = LayoutInflater.from(context).inflate(R.layout.dialog_update_task, null)
+        val input = view.findViewById<EditText>(R.id.etTaskDescription)
+        input.setText(taskToEdit.description)
+
+        builder.setView(view)
+            .setTitle("Edit Task")
+            .setPositiveButton("Save") { dialog, _ ->
+                val updatedDescription = input.text.toString().trim()
+                if (updatedDescription.isNotEmpty()) {
+                    // Update the task in the database
+                    val updatedTask = taskToEdit.copy(description = updatedDescription)
+                    lifecycleScope.launch {
+                        db.taskDao().updateTask(updatedTask)
+                    }
+                } else {
+                    Toast.makeText(context, "Task cannot be empty", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 
     private fun observeTasks() {
         // Collect tasks from the database and submit to the adapter
         lifecycleScope.launch {
             db.taskDao().getAllTasks().collect { tasks ->
-                taskAdapter.submitList(tasks)
+                val isNewTaskAdded = tasks.size > previousTaskCount
+                taskAdapter.submitList(tasks) {
+                    if (isInitialLoad) {
+
+                        binding.recyclerChecklist.scrollToPosition(0)
+                        isInitialLoad = false
+                    } else if (isNewTaskAdded) {
+                        binding.recyclerChecklist.smoothScrollToPosition(tasks.size - 1)
+                    }
+                    previousTaskCount = tasks.size
+                }
             }
         }
     }
@@ -72,7 +118,7 @@ class ChecklistFragment : Fragment() {
     }
 
     private fun showAddTaskDialog() {
-        val builder = AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
+        val builder = AlertDialog.Builder(requireContext())
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_add_task, null)
         val input = view.findViewById<EditText>(R.id.etTaskDescription)
 

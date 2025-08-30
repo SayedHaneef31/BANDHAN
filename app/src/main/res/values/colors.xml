@@ -6,4 +6,6 @@
     <color name="primaryTextColor">#591623</color>
     <color name="secondaryTextColor">#73464A</color>
     <color name="primaryAppColor">#F2E4DC</color>
+    <color name="hint_grey">#C5BBBB</color>
+    <color name="dark_grey">#6D6969</color>
 </resources>
