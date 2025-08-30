@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="16dp"
@@ -60,6 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+
         app:cardCornerRadius="12dp"
         app:cardElevation="2dp"
         app:layout_constraintTop_toBottomOf="@id/searchBar"
@@ -89,11 +91,14 @@
                 android:layout_marginTop="8dp"
                 android:textColor="@color/black"/>
 
-            <SeekBar
-                android:id="@+id/seekBudget"
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/rangeBudget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="50"/>
+                android:valueFrom="10000"
+                android:valueTo="500000"
+                app:values="@array/default_budget_range"
+                 />
 
             <TextView
                 android:id="@+id/tvBudgetRange"
@@ -104,18 +109,25 @@
                 android:textSize="12sp"
                 android:textColor="@color/black"/>
 
-            <!-- Capacity Dropdown -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Capacity"
-                android:layout_marginTop="8dp"
+                android:text="Expected Guests"
+                android:layout_marginTop="12dp"
                 android:textColor="@color/black"/>
 
-            <Spinner
-                android:id="@+id/spinnerCapacity"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:hint="Enter guest count">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etGuestCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -125,7 +137,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="16dp"
+
         app:layout_constraintTop_toBottomOf="@id/filterCard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
