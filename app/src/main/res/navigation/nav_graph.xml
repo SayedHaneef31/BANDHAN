@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/checklistFragment"
+        android:name="com.sayed.bandhan.UI.Fragments.ChecklistFragment"
+        android:label="ChecklistFragment" />
+    <fragment
+        android:id="@+id/budgetFragment"
+        android:name="com.sayed.bandhan.UI.Fragments.BudgetFragment"
+        android:label="fragment_budget"
+        tools:layout="@layout/fragment_budget" />
+    <fragment
+        android:id="@+id/guestFragment"
+        android:name="com.sayed.bandhan.UI.Fragments.GuestFragment"
+        android:label="fragment_guest"
+        tools:layout="@layout/fragment_guest" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.sayed.bandhan.UI.Fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/venuesFragment"
+        android:name="com.sayed.bandhan.UI.Fragments.VenuesFragment"
+        android:label="fragment_venues"
+        tools:layout="@layout/fragment_venues" />
+</navigation>

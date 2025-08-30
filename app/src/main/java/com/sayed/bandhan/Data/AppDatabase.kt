@@ -12,11 +12,13 @@ import androidx.room.RoomDatabase
  * @param version The version number of the database.
  * @param exportSchema Whether to export the schema into a folder.
  */
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Task::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     // The DAO for the User entity
     abstract fun userDao(): UserDao
+    abstract fun taskDao(): TaskDao
+
 
     companion object {
         // Singleton pattern to ensure only one instance of the database exists

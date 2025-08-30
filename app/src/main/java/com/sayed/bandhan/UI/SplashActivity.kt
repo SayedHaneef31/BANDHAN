@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.postDelayed
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.sayed.bandhan.MainActivity
+import com.sayed.bandhan.UI.MainActivity
 import com.sayed.bandhan.R
 import android.os.Handler
 import androidx.lifecycle.lifecycleScope

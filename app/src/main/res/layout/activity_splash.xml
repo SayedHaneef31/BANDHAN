@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEEE6"
+    android:background="#F0D6CF"
     tools:context=".UI.SplashActivity">
 
     <ImageView
@@ -29,23 +29,22 @@
         android:text="Managed by"
         android:textColor="@color/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintEnd_toStartOf="@id/textView2"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/roberto_simple"
         android:text="Bauer Bodoni"
-        android:layout_marginLeft="9dp"
-        android:textStyle="bold"
         android:textColor="@color/secondaryTextColor"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.626"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

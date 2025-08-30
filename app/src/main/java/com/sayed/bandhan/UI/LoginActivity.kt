@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.sayed.bandhan.Data.AppDatabase
 import com.sayed.bandhan.Data.User
-import com.sayed.bandhan.MainActivity
+import com.sayed.bandhan.UI.MainActivity
 import com.sayed.bandhan.R
 import com.sayed.bandhan.databinding.ActivityLoginBinding
 import kotlinx.coroutines.launch
